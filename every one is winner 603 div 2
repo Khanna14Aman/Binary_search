@@ -1,0 +1,36 @@
+#include<iostream>
+#include<bits/stdc++.h>
+using namespace std;
+set<int>s;
+void fun(int n)
+{
+    int i;
+    int b = sqrt(n);
+    for(i=0;i<=b;i++)
+    {
+        s.emplace(i);
+    }
+    for(i=1;i<=b;i++)
+    {
+        s.emplace(n/i);
+    }
+}
+int main()
+{
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int n;
+        cin>>n;
+        fun(n);
+        cout<<s.size()<<"\n";
+        for(auto it : s)
+        {
+            cout<<it<<" ";
+        }
+        cout<<"\n";
+        s.clear();
+    }
+    return 0;
+}
