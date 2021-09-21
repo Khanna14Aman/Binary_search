@@ -1,0 +1,39 @@
+question==>https://codeforces.com/contest/1574/problem/C
+
+solution==>https://codeforces.com/contest/1574/submission/129478658
+
+#include<bits/stdc++.h>
+#define int long long 
+using namespace std;
+signed main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    int n;
+    scanf("%lld",&n);  //cin,cout will give tle;
+    int a[n+1];
+    int sum=0;
+    for(int i=1;i<=n;i++){
+        scanf("%lld",&a[i]);
+        sum += a[i];          // total sum of powers of soldiers
+    }
+    sort(a+1,a+n+1);
+    int m;
+    scanf("%lld",&m);
+    while(m--){
+        int x,y;
+        scanf("%lld%lld",&x,&y);
+        int ans = 2e18;
+        int it = lower_bound(a+1,a+n+1,x)-a;
+        if(it<=n){
+            int temp = sum-a[it];   // total power - power need to kill villian will be remaining power;
+            ans = min(ans,max(y-temp,0LL));  // checking minimum power to gain by coins adding; if attacking power of villian (y) is less than soldier remaing power than need to add 0 coins 
+        }
+        if(it>1){
+            int temp = x-a[it-1];  // checking if there is a lot of difference between soldier power and actual power needed to soldier to kill villian eg soldier power 2,3,3,6  and villia power 4,14
+            temp += max((y-(sum-a[it-1])),0LL);   // checking if remaining power of soldier is sufficient to defence the soldier team;
+            ans = min(ans,temp);
+        }
+        printf("%lld\n",ans);
+    }
+    return 0;
+}
