@@ -1,0 +1,55 @@
+question==>https://www.codechef.com/problems/INTCONCA
+
+
+discuss video==>https://www.youtube.com/watch?v=nktqs_-ykJ0&t=364s
+
+
+#include<bits/stdc++.h>
+#define int long long 
+using namespace std;
+
+
+int mod = LLONG_MAX;
+int powe(int base, int n)
+{
+	int ans = 1;
+	while(n)
+	{
+		if(n%2==0)
+		{
+			base = (base*base) % mod;
+			n /=2;
+		}
+		else
+		{
+			ans = (ans*base) % mod;
+			n -= 1;
+		}
+	}
+    return ans;
+}
+
+
+signed main(){
+    int t;
+    cin>>t;
+    while(t--){
+        int n,l,r;
+        cin>>n>>l>>r;
+        int a[n];
+        for(int i=0;i<n;i++){
+            cin>>a[i];
+        }
+        int ans=0;
+        sort(a,a+n);
+        for(auto y:a){
+            int len = log10(y)+1;           // this function will help us finding the length of integer
+            int den = powe(10,len);
+            int R = (r-y)/den;
+            int L = (l-y+den-1)/den;
+            ans+= upper_bound(a,a+n,R)-lower_bound(a,a+n,L);
+        }
+        cout<<ans<<"\n";
+    }
+    return 0;
+}
