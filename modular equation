@@ -1,0 +1,39 @@
+question==>https://www.codechef.com/problems/MODEQ
+
+
+
+
+
+
+
+#include<bits/stdc++.h>
+#define int long long 
+using namespace std;
+int maxi = 5e5+7;
+
+signed main(){
+    int t;
+    cin>>t;
+    vector<vector<int>>a(maxi);
+    for(int i=1;i<=maxi;i++){
+        for(int j=i;j<=maxi;j+=i){
+            a[j].push_back(i);
+        }
+    }
+    while(t--){
+        int n,m;
+        cin>>n>>m;
+        int ans=0;
+        for(int b=2;b<=n;b++){
+            int x = m-(m%b);
+            if(x>0){
+                ans+= lower_bound(a[x].begin(),a[x].end(),b)-a[x].begin();
+            }
+            else{
+                ans+=b-1;
+            }
+        }
+        cout<<ans<<"\n";
+    }
+    return 0;
+}
